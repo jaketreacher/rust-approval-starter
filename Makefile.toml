@@ -1,0 +1,18 @@
+[tasks.insta]
+command = "cargo"
+args = ["insta", "test", "--review"]
+watch = { watch = ["./src"], ignore_pattern = "**/*/snapshots" }
+
+[tasks.coverage]
+install_crate = "cargo-tarpaulin"
+command = "cargo"
+args = [
+  "tarpaulin",
+  "--out",
+  "lcov",
+  "--skip-clean",
+  "--target-dir",
+  "./target/coverage",
+]
+watch = { watch = ["./src"], ignore_pattern = "**/*/*.snap.new" }
+clear = true
