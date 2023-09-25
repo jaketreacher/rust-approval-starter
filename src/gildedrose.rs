@@ -96,14 +96,43 @@ impl GildedRose {
 
 #[cfg(test)]
 mod tests {
+    use insta::assert_snapshot;
+
     use super::{GildedRose, Item};
 
     #[test]
-    pub fn foo() {
-        let items = vec![Item::new("foo", 0, 0)];
-        let mut rose = GildedRose::new(items);
-        rose.update_quality();
+    fn test_acceptance() {
+        let names = vec![
+            "Aged Brie",
+            // "Backstage passes to a TAFKAL80ETC concert",
+            // "Sulfuras, Hand of Ragnaros",
+            // "Elixir of the Mongoose",
+        ];
+        let sell_ins = vec![0];
+        // let sell_ins = (-1..=12).collect::<Vec<i32>>();
+        let qualities = vec![
+            // -1,
+            0,
+            // 1,
+            // 49,
+            // 50,
+            // 51
+        ];
 
-        assert_eq!("fixme", rose.items[0].name);
+        let mut items = vec![];
+
+        for &name in &names {
+            for &sell_in in &sell_ins {
+                for &quality in &qualities {
+                    let item = Item::new(name, sell_in, quality);
+                    items.push(item);
+                }
+            }
+        }
+
+        let mut gilded_rose = GildedRose::new(items);
+        gilded_rose.update_quality();
+
+        assert_snapshot!(format!("{}", gilded_rose))
     }
 }

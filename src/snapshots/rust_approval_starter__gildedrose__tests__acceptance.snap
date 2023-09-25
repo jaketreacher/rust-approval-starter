@@ -1,0 +1,6 @@
+---
+source: src/gildedrose.rs
+expression: "format!(\"{}\", gilded_rose)"
+---
+Aged Brie, -1, 2
+
